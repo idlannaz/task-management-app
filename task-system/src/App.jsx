@@ -13,12 +13,17 @@ function App() {
     localStorage.setItem('ITEMS', JSON.stringify(todos));
   }, [todos]);
 
+  // Function to generate a unique ID
+  function generateUUID() {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  }
+
   // Function to add a new task with optional parent
   function addTodo(title, parentId = null) {
     setTodos(currentTodos => {
       return [
         ...currentTodos,
-        { id: crypto.randomUUID(), title, completed: false, parentId }
+        { id: generateUUID(), title, completed: false, parentId }
       ];
     });
   }
@@ -38,9 +43,13 @@ function App() {
   // Function to delete a task
   function deleteTodo(id) {
     setTodos(currentTodos => {
-      return currentTodos.filter(todo => todo.id !== id);
+      const updatedTodos = currentTodos.filter(todo => todo.id !== id);
+      localStorage.setItem('ITEMS', JSON.stringify(updatedTodos)); // Update local storage
+      return updatedTodos;
     });
   }
+
+  // localStorage.clear();
 
   // Recursive function to display tasks and their children
   function renderTasks(tasks, parentId = null) {
@@ -51,7 +60,6 @@ function App() {
         const allChildrenCompleted = childTasks.every(child => child.completed); // Check if all children are done
         const taskStatusLabel = task.completed ? "Completed" :
           childTasks.length > 0 && allChildrenCompleted ? "Done" : "In Progress"; // Determine status label
-
         return (
           <li key={task.id}>
             <label>
