@@ -32,12 +32,12 @@ This project is a **Task Management System** built using **React** and **TypeScr
 
 3. **Start the application:**
    ```bash
-   npm start
+   npm run dev
    ```
 
 4. **Open your browser and visit:**
    ```
-   http://localhost:3000
+   http://localhost:5173
    ```
 
 ## Usage
