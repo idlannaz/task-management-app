@@ -94,7 +94,7 @@ function App() {
                   value={editTitle}
                   onChange={e => setEditTitle(e.target.value)}
                   onBlur={saveEditTodo}
-                  onKeyPress={e => {
+                  onKeyDown={e => {
                     if (e.key === 'Enter') saveEditTodo();
                   }}
                 />
@@ -113,6 +113,9 @@ function App() {
         );
       });
   }
+
+  localStorage.clear();
+
 
   return (
     <>

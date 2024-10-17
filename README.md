@@ -1,69 +1,95 @@
 # Task Management System
 
-## Overview
-
-This project is a **Task Management System** built using **React** and **TypeScript**. It allows users to create, manage, and track tasks with parent-child relationships. The application supports task creation, editing, deletion, and dynamically updating the status of tasks based on their completion.
+A Task Management System built with **Vite**, **React (JS + SWC)** that allows users to add, manage, and edit tasks. It also supports parent-child relationships for tasks, so tasks can have subtasks.
 
 ## Features
 
-- Create tasks with unique IDs, names, and optional parent task IDs.
-- View tasks in a hierarchical format, displaying parent-child relationships.
-- Toggle task statuses between **In Progress**, **Done**, and **Completed**.
-- Automatically update parent task statuses based on child task completion.
-- Local storage support to persist tasks between sessions.
+- Add new tasks with optional parent task selection (for subtasks).
+- Mark tasks as completed.
+- Automatically manage task statuses based on completion of subtasks.
+- Edit existing tasks.
+- Delete tasks.
+- Task data is saved in **localStorage** for persistence.
 
-## Requirements
+## Getting Started
 
-- **Node.js** and **npm** installed on your machine.
-- Basic knowledge of React and TypeScript.
+### Prerequisites
 
-## Installation
+To run this project, make sure you have the following installed:
 
-1. **Clone the repository:**
-   ```bash
-   git clone <repository-url>
-   cd <project-directory>
-   ```
+- [Node.js](https://nodejs.org/) (version 16+)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+### Installation
 
-3. **Start the application:**
-   ```bash
-   npm run dev
-   ```
+1. Clone the repository:
 
-4. **Open your browser and visit:**
-   ```
-   http://localhost:5173
-   ```
+```bash
+git clone https://github.com/your-username/task-management-system.git
+cd task-management-system
+```
 
-## Usage
+2. Install dependencies:
 
-- To create a new task, enter the task name in the input field and, optionally, select a parent task.
-- Click the **Add New Task** button to save the task.
-- Tasks are displayed in a list format, and you can toggle their statuses by clicking the checkbox next to each task.
-- Child tasks will be displayed under their parent tasks in a nested format.
+Using npm:
+```bash
+npm install
+```
 
-## Code Structure
+Or using yarn:
+```bash
+yarn install
+```
 
-- **`src/`**: Contains the source code for the application.
-  - **`App.jsx`**: Main application component that manages the task list and user interactions.
-  - **`AddNew.jsx`**: Component for adding new tasks to the system.
-  - **`style.css`**: Basic styles for the application.
+### Running the Project
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+This will open the app at `http://localhost:5173` (or another port as specified by Vite).
+
+### Build for Production
+
+To create a production-ready build:
+
+```bash
+npm run build
+```
+
+This will generate optimized files in the `dist` directory.
+
+### Linting
+
+You can run ESLint to check for code issues:
+
+```bash
+npm run lint
+```
+
+## Project Structure
+
+- **App.jsx**: The main component that renders the list of tasks, manages state, and handles adding, editing, and deleting tasks.
+- **AddNew.jsx**: The component that handles the form to add new tasks or subtasks.
+- **style.css**: Basic styling for the app.
+
+## Local Storage
+
+The task data is stored in the browser's `localStorage`, so tasks will persist even after the page is refreshed.
+
+## Future Improvements
+
+- Add task due dates.
+- Add priority levels for tasks.
+- Implement search and filter functionalities.
+- Use a database or API for persistent data storage.
 
 ## Contributing
 
-Contributions are welcome! If you have suggestions for improvements or bug fixes, please create a pull request or open an issue.
+Contributions are welcome! Feel free to fork this project, make improvements, and open a pull request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-
-- Inspired by various task management applications.
-- Special thanks to the React community for their resources and documentation.
-
+This project is licensed under the MIT License.
