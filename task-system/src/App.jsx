@@ -9,16 +9,17 @@ function App() {
     return JSON.parse(localValue);
   });
 
+  const [editId, setEditId] = useState(null);
+  const [editTitle, setEditTitle] = useState('');
+
   useEffect(() => {
     localStorage.setItem('ITEMS', JSON.stringify(todos));
   }, [todos]);
 
-  // Function to generate a unique ID
   function generateUUID() {
-    return '_' + Math.random().toString(36).substr(2, 9);
+    return '_' + Math.random().toString(36).slice(2, 11);
   }
 
-  // Function to add a new task with optional parent
   function addTodo(title, parentId = null) {
     setTodos(currentTodos => {
       return [
@@ -28,7 +29,6 @@ function App() {
     });
   }
 
-  // Function to toggle task completion
   function toggleTodo(id, completed) {
     setTodos(currentTodos => {
       return currentTodos.map(todo => {
@@ -40,26 +40,42 @@ function App() {
     });
   }
 
-  // Function to delete a task
   function deleteTodo(id) {
     setTodos(currentTodos => {
       const updatedTodos = currentTodos.filter(todo => todo.id !== id);
-      localStorage.setItem('ITEMS', JSON.stringify(updatedTodos)); // Update local storage
+      localStorage.setItem('ITEMS', JSON.stringify(updatedTodos));
       return updatedTodos;
     });
   }
 
-  // localStorage.clear();
+  // Function to enable edit mode
+  function editTodo(id, title) {
+    setEditId(id);
+    setEditTitle(title);
+  }
 
-  // Recursive function to display tasks and their children
+  // Function to save edited title
+  function saveEditTodo() {
+    setTodos(currentTodos =>
+      currentTodos.map(todo =>
+        todo.id === editId ? { ...todo, title: editTitle } : todo
+      )
+    );
+    setEditId(null);
+    setEditTitle('');
+  }
+
   function renderTasks(tasks, parentId = null) {
     return tasks
-      .filter(task => task.parentId === parentId) // Only show tasks that match the current parentId
+      .filter(task => task.parentId === parentId)
       .map(task => {
-        const childTasks = tasks.filter(t => t.parentId === task.id); // Get child tasks
-        const allChildrenCompleted = childTasks.every(child => child.completed); // Check if all children are done
-        const taskStatusLabel = task.completed ? "Completed" :
-          childTasks.length > 0 && allChildrenCompleted ? "Done" : "In Progress"; // Determine status label
+        const childTasks = tasks.filter(t => t.parentId === task.id);
+        const allChildrenCompleted = childTasks.every(child => child.completed);
+        const taskStatusLabel = task.completed
+          ? 'Completed'
+          : childTasks.length > 0 && allChildrenCompleted
+          ? 'Done'
+          : 'In Progress';
         return (
           <li key={task.id}>
             <label>
@@ -67,14 +83,32 @@ function App() {
                 type="checkbox"
                 checked={task.completed}
                 onChange={e => toggleTodo(task.id, e.target.checked)}
-                disabled={task.completed ? false : childTasks.length > 0 && !allChildrenCompleted} // Disable checkbox if not all children are done
+                disabled={
+                  task.completed
+                    ? false
+                    : childTasks.length > 0 && !allChildrenCompleted
+                }
               />
-              {task.title} - {taskStatusLabel} {/* Show status label */}
+              {editId === task.id ? (
+                <input
+                  value={editTitle}
+                  onChange={e => setEditTitle(e.target.value)}
+                  onBlur={saveEditTodo}
+                  onKeyPress={e => {
+                    if (e.key === 'Enter') saveEditTodo();
+                  }}
+                />
+              ) : (
+                <>
+                  {task.title} - {taskStatusLabel}
+                </>
+              )}
             </label>
+            {editId !== task.id && (
+              <button onClick={() => editTodo(task.id, task.title)}>Edit</button>
+            )}
             <button className="btn btn-danger" onClick={() => deleteTodo(task.id)}>Delete</button>
-            <ul>
-              {renderTasks(tasks, task.id)} {/* Recursively render child tasks */}
-            </ul>
+            <ul>{renderTasks(tasks, task.id)}</ul>
           </li>
         );
       });
@@ -85,7 +119,7 @@ function App() {
       <AddNew todos={todos} onSubmit={addTodo} />
       <h1 className="header">Task System</h1>
       <ul className="list">
-        {todos.length === 0 && "No Tasks"}
+        {todos.length === 0 && 'No Tasks'}
         {renderTasks(todos)}
       </ul>
     </>
