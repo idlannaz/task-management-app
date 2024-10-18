@@ -27,6 +27,7 @@ To run this project, make sure you have the following installed:
 ```bash
 git clone https://github.com/your-username/task-management-system.git
 cd task-management-system
+cd task-system
 ```
 
 2. Install dependencies:
