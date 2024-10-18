@@ -18,7 +18,7 @@ A Task Management System built with **Vite**, **React (JS + SWC)** that allows u
 To run this project, make sure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (version 16+)
-- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [npm](https://www.npmjs.com/)
 
 ### Installation
 
@@ -35,11 +35,6 @@ cd task-system
 Using npm:
 ```bash
 npm install
-```
-
-Or using yarn:
-```bash
-yarn install
 ```
 
 ### Running the Project
