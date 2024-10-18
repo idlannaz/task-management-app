@@ -47,24 +47,6 @@ npm run dev
 
 This will open the app at `http://localhost:5173` (or another port as specified by Vite).
 
-### Build for Production
-
-To create a production-ready build:
-
-```bash
-npm run build
-```
-
-This will generate optimized files in the `dist` directory.
-
-### Linting
-
-You can run ESLint to check for code issues:
-
-```bash
-npm run lint
-```
-
 ## Project Structure
 
 - **App.jsx**: The main component that renders the list of tasks, manages state, and handles adding, editing, and deleting tasks.
